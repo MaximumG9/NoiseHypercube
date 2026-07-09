@@ -383,6 +383,11 @@ function onLoad() {
 	for(let i=0;i<4;i++) {
 		sliders.push(document.getElementById(`slide${i}`));
 		sliders[i].children[0].oninput = (newSlide) => {recalculateSlider(i,newSlide);};
+
+		sliders[i].children[0].ondblclick = (e) => {
+			e.target.value = 0;
+			recalculateSlider(i,e);
+		}
 	}
 
 	versionDropdown = document.getElementById("versionDropdown");
