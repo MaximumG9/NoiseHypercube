@@ -233,7 +233,7 @@ sliderLoop:
 		let height = remapToYAxis(length,closeMargin,yAxis,yBounds[0]) - 
 			remapToYAxis(length,closeMargin,yAxis,yBounds[1]);
 
-		if(width == 0 || height == 0) {
+		if(width === 0 || height === 0) {
 			ctx.beginPath();
 			ctx.strokeStyle = colour;
 			ctx.moveTo(minX,minY);
@@ -259,12 +259,21 @@ sliderLoop:
 		}
 		let name = biomesToDraw[i].id.replace("minecraft:",""); 
 
-		let dim = ctx.measureText(name);
+		if(width === 0) {
+			ctx.fillText(
+				name,
+				minX - ctx.measureText(name).width/2,
+						// AGAIN!!! THIS IS CURSED BUT LOOKS CORRECT!!
+				minY + height/2 + biomeFontHeight/3,
+			);
+
+			continue;
+		}
 
 		let lines = [];
 
 		let lastIndex = 0;
-
+		
 		do {
 			for(let i=name.length;i>lastIndex;i--) {
 				if(ctx.measureText(name.substring(lastIndex,i)).width + 2 < width) {
