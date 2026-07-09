@@ -1,4 +1,5 @@
 #slider-container {
+
    position:absolute;
    bottom:1vh;
    left:0.5vw;
@@ -32,6 +33,7 @@
 #title {
    font-size: calc(min(4vh,5vw));
    text-align:center;
+   position:relative;
    width:100%;
    z-index:2;
 }
@@ -39,6 +41,7 @@
 #author {
    font-size: calc(min(2vh,3vw));
    width:100%;
+   position:relative;
    text-align:center;
    margin-top:0;
    z-index:2;
