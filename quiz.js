@@ -89,7 +89,6 @@ function rebuildUI() {
 		case 0:
 			questionHeader.innerText = "Answer the question now you coward:";
 			const imgNode = document.createElement("img");
-			imgNode.src = "https://cdn.discordapp.com/attachments/1524474259995623535/1524474260519784659/PXL_20260708_175400653.jpg?ex=6a4fe0cb&is=6a4e8f4b&hm=11659a3b35651a771d8e85614b877af436fcccdbe56a642e8b3d3673df3e46e7&";
 			infoDiv.appendChild(imgNode);
 			
 			dropdown1 = document.createElement("select");
