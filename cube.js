@@ -65,7 +65,7 @@ function updateDocShape() {
 
 function updateSliderText() {
 	for(let i=0; i<sliders.length;i++) {
-		sliders[i].children[0].innerText = `${noiseParams[sliderParams[i]].name}(${sliderValues[i].toFixed(2)})`;
+		sliders[i].children[1].innerText = `${noiseParams[sliderParams[i]].name}(${sliderValues[i].toFixed(2)})`;
 	}
 }
 
@@ -312,7 +312,7 @@ function recalculateSlider(id,e) {
 function recalculateAllSliders() {
 	if(invalid) return;
 	for(let i=0;i<sliders.length;i++) {
-		sliderValues[i] = sliders[i].children[1].valueAsNumber;
+		sliderValues[i] = sliders[i].children[0].valueAsNumber;
 	}
 }
 
@@ -335,7 +335,7 @@ function updateSliderParams() {
 function onLoad() {
 	for(let i=0;i<4;i++) {
 		sliders.push(document.getElementById(`slide${i}`));
-		sliders[i].children[1].oninput = (newSlide) => {recalculateSlider(i,newSlide);};
+		sliders[i].children[0].oninput = (newSlide) => {recalculateSlider(i,newSlide);};
 	}
 
 	xAxisDropdown = document.getElementById("xAxis");

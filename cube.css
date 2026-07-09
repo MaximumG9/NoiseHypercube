@@ -2,28 +2,56 @@
    position:absolute;
    bottom:1vh;
    left:0.5vw;
+   z-index:4;
 }
-
-#selector-container {
-   position:absolute;
-   bottom:1vh;
-   right:1vw;
-}
-
-
 
 .slider-label {
    position:relative;
+   font-size:1.9vh;
+   left:calc(max(225px,20.2vh));
 }
 
 .slider {
-   width:220px;
+   width:calc(max(220px,20vh));
    position:absolute;
-   height:1.3vh;
-   left:220px;
+   height:2vh;
 }
 
 #visual{
    position:absolute;
+   top:calc(max(20vh - 20vw,0vh));
    justify-content: center;
+   z-index:0;
+}
+
+#ta {
+   position:absolute;
+   width:100vw;
+}
+
+#title {
+   font-size: calc(min(4vh,5vw));
+   text-align:center;
+   width:100%;
+   z-index:2;
+}
+
+#author {
+   font-size: calc(min(2vh,3vw));
+   width:100%;
+   text-align:center;
+   margin-top:0;
+   z-index:2;
+}
+
+select {
+  font-size: 1.9vh;
+}
+
+#yAxis {
+   margin-bottom:1vh;
+}
+
+#xAxis {
+   margin-bottom:1vh;
 }

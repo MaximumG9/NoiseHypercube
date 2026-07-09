@@ -78,7 +78,7 @@ function showEnd() {
 	infoDiv.appendChild(text);
 
 	let responsesTxt = document.createElement("p");
-	responsesTxt.innerText = responses.toString();
+	responsesTxt.innerText = JSON.stringify(responses);
 	infoDiv.appendChild(responsesTxt);
 }
 
@@ -89,6 +89,7 @@ function rebuildUI() {
 		case 0:
 			questionHeader.innerText = "Answer the question now you coward:";
 			const imgNode = document.createElement("img");
+			
 			infoDiv.appendChild(imgNode);
 			
 			dropdown1 = document.createElement("select");
