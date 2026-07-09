@@ -1,4 +1,5 @@
 const DIVISION_COUNT = 8;
+
 const TEXT_DIVISION_COUNT = 4;
 
 let canvas;
@@ -214,7 +215,7 @@ sliderLoop:
 		biomesToDraw.push(biomeData[i]);
 	}
 
-	let biomeFontHeight = insideLength * 0.01;
+	let biomeFontHeight = insideLength * 0.0125;
 
 	ctx.font = `${biomeFontHeight}px Overpass Mono`;
 
@@ -260,11 +261,27 @@ sliderLoop:
 
 		let dim = ctx.measureText(name);
 
-		ctx.fillText(
-			name,
-			minX + width/2 - dim.width/2,
-			minY + height/2 - biomeFontHeight/2,
-		);
+		let lines = [];
+
+		let lastIndex = 0;
+
+		do {
+			for(let i=name.length;i>lastIndex;i--) {
+				if(ctx.measureText(name.substring(lastIndex,i)).width + 2 < width) {
+					lines.push(name.substring(lastIndex,i));
+					lastIndex = i;
+					break;
+				}
+			}
+		} while(lastIndex < name.length);
+
+		for(let i=0;i<lines.length;i++) {
+			ctx.fillText(
+				lines[i],
+				minX + width/2 - ctx.measureText(lines[i]).width/2,
+				minY + height/2 + biomeFontHeight + ((i-lines.length/2)*(biomeFontHeight + 2)),
+			);
+		}
 	}
 }
 
