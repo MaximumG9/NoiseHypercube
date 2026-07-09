@@ -1,0 +1,29 @@
+#slider-container {
+   position:absolute;
+   bottom:1vh;
+   left:0.5vw;
+}
+
+#selector-container {
+   position:absolute;
+   bottom:1vh;
+   right:1vw;
+}
+
+
+
+.slider-label {
+   position:relative;
+}
+
+.slider {
+   width:220px;
+   position:absolute;
+   height:1.3vh;
+   left:220px;
+}
+
+#visual{
+   position:absolute;
+   justify-content: center;
+}
