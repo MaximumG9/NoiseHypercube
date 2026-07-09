@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+body {
+   background-color: #111;
+   font-family: "Overpass Mono", monospace;
+   font-optical-sizing: auto;
+   font-weight: 400;
+   font-style: normal;
+   color: #888;
+   height: 100vh;
+   width: 100vw;
+   margin: 0;
+}
+
+.slider {
+	-webkit-appearance: none;
+	appearance: none;
+	background:#333;
+	outline: none;
+	opacity: 0.8;
+	-webkit-transition: .2s;
+	transition: opacity .2s;
+	height:1.5rem;
+}
+
+.slider:hover {
+	opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+	border-radius: 0;
+	background:#888;
+	cursor:pointer;
+	height:inherit;
+	width:auto;
+	aspect-ratio:1;
+}
+
+.slider::-moz-range-thumb {
+	border-radius: 0;
+	background:#888;
+	cursor:pointer;
+	height:inherit;
+	width:auto;
+	aspect-ratio:1;
+}
+select,
+::picker(select) {
+	appearance: base-select;
+}
+
+select {
+	background: #111;
+	border-radius: 0.5rem;
+	border: solid #666 0.2rem;
+}
+
+select::picker-icon {
+	color: #fff;
+}
+
+select:hover {
+	background: #222;
+	border-color: #777;
+}
+
+select:open {
+	background: #444;
+	border-color: #888;
+}
+
+button {
+	background: #111;
+	border-radius: .5rem;
+	border: solid #444 0.2rem;
+	color: #888;
+	width:fit-content;
+	font-family: "Overpass Mono", monospace;
+}
+
+button:hover {
+	background: #222;
+	border-color: #666;
+}
+
+button:active {
+	background: #ddd;
+	border-color: #aaa;
+}
+
+h1 {
+	margin: 0;
+}
+
+#visual{
+   position:absolute;
+   justify-content: center;
+}
+
+a:link {
+	color: goldenrod;
+}
+
+a:visited {
+	color: purple;
+}
+
+a:hover {
+	color: darkgoldenrod;
+}
+
+a:active {
+	color: orange
+}
