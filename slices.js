@@ -53,7 +53,13 @@ let yAxis = 5;
 let xAxisDropdown;
 let yAxisDropdown;
 
+let versionDropdown;
+
+let biomeDataScript;
+
 let invalid = false;
+
+let remapWeirdness = false;
 
 function updateDocShape() {
 	if(!invalid) updateSliderText();
@@ -104,7 +110,31 @@ function updateCanvas() {
 
 	let farMargin = length * (1-axisMargin);
 	let closeMargin = length * axisMargin;
+
+	// Compute biomes to draw
 	
+	let biomesToDraw = [];
+
+	remapWeirdness = false;
+
+dataLoop:
+	for(let i=0;i<biomeData.length;i++) {
+sliderLoop:
+		for(let j=0;j<sliderParams.length;j++) {
+			let bounds = biomeData[i][noiseParams[sliderParams[j]].key];
+			
+			if(noiseParams[sliderParams[j]].key === noiseParams[4].key && sliderValues[j] < 0 && bounds[0] === bounds[1] && bounds[0] === 0) continue sliderLoop;
+			
+			if(sliderValues[j] < bounds[0] || sliderValues[j] > bounds[1]) continue dataLoop;
+		}
+		biomesToDraw.push(biomeData[i]);
+		if(biomeData[i].id === "minecraft:sulfur_caves") {
+			remapWeirdness = true;
+		}
+	}
+
+
+
 	ctx.strokeStyle = "white";
 	
 	ctx.beginPath();
@@ -200,20 +230,7 @@ function updateCanvas() {
 
 	// Draw biomes
 	
-	let biomesToDraw = [];
-
-dataLoop:
-	for(let i=0;i<biomeData.length;i++) {
-sliderLoop:
-		for(let j=0;j<sliderParams.length;j++) {
-			let bounds = biomeData[i][noiseParams[sliderParams[j]].key];
-			
-			if(noiseParams[sliderParams[j]].key === noiseParams[4].key && sliderValues[j] < 0 && bounds[0] === bounds[1] && bounds[0] === 0) continue sliderLoop;
-			
-			if(sliderValues[j] < bounds[0] || sliderValues[j] > bounds[1]) continue dataLoop;
-		}
-		biomesToDraw.push(biomeData[i]);
-	}
+	
 
 	let biomeFontHeight = insideLength * 0.0125;
 
@@ -308,6 +325,8 @@ function remapToXAxis(length,margin,axis, value) {
 		return margin + (length - 2*margin)*((value + 1.2)/2.2)
 	} else if(axis === 4) { // Depth
 		return margin + (length - 2*margin)*((value + 1)/2.1)
+	} else if(axis === 5 && remapWeirdness) {
+		return margin + (length - 2*margin)*((value + 1.1)/2.2)
 	} else {
 		return margin + (length - 2*margin)*((value + 1)/2)
 	}
@@ -318,6 +337,8 @@ function remapToYAxis(length,margin,axis, value) {
 		return (length-margin) - (length - 2*margin)*((value + 1.2)/2.2)
 	} else if(axis === 4) { // Depth
 		return (length-margin) - (length - 2*margin)*((value + 1)/2.1)
+	} else if(axis === 5 && remapWeirdness) {
+		return ((length-margin) - (length - 2*margin)*((value + 1.1)/2.1));
 	} else {
 		return (length-margin) - (length - 2*margin)*((value + 1)/2)
 	}
@@ -364,6 +385,39 @@ function onLoad() {
 		sliders[i].children[0].oninput = (newSlide) => {recalculateSlider(i,newSlide);};
 	}
 
+	versionDropdown = document.getElementById("versionDropdown");
+
+	biomeDataScript = document.createElement("script");
+	
+	versionDropdown.onchange = (e) => {
+		let version = e.target.value;
+
+		document.head.removeChild(biomeDataScript);
+
+		biomeDataScript = document.createElement("script");
+
+		biomeDataScript.type = "text/javascript";
+		biomeDataScript.src = `biomeData-${version}.js`;
+		document.head.appendChild(biomeDataScript);
+
+		biomeDataScript.onload = () => {
+			updateSliderParams();
+
+			recalculateAllSliders();
+			updateDocShape();
+			updateCanvas();
+		};
+	};
+
+	biomeDataScript.type = "text/javascript";
+	biomeDataScript.src = `biomeData-${versionDropdown.value}.js`;
+
+	document.head.appendChild(biomeDataScript);
+
+	biomeDataScript.onload = postBiomeDataLoad;
+}
+
+function postBiomeDataLoad() {
 	xAxisDropdown = document.getElementById("xAxis");
 
 	yAxisDropdown = document.getElementById("yAxis");

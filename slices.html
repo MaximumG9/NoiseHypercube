@@ -5,7 +5,7 @@
 		<link rel="stylesheet" href="all.css">
 		<link rel="stylesheet" href="slices.css">
 		<link rel="icon" href="favicon.ico" />
-		<script src="biomeData.js" type="text/javascript"></script>
+		<script src="biomeDataDefs.js" type="text/javascript"></script>
 		<script src="colours.js" type="text/javascript"></script>
 		<script src="slices.js" type="text/javascript"></script>
 	</head>
@@ -16,6 +16,12 @@
 		</div>
 		<canvas id="visual"></canvas>
 		<div id="slider-container">
+			<div>
+				<select id="versionDropdown">
+					<option value="1.21.11">1.21.11</option>
+					<option value="26.2">26.2</option>
+				</select>
+			</div>
 			<select id="xAxis">
 				<option value=0 selected>Temperature</option>
 				<option value=1>Humidity</option>
