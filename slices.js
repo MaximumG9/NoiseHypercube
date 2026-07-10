@@ -228,9 +228,6 @@ sliderLoop:
 	ctx.restore();
 
 	// Draw biomes
-	
-	
-
 	let biomeFontHeight = insideLength * 0.0125;
 
 	ctx.font = `${biomeFontHeight}px Overpass Mono`;
@@ -341,12 +338,6 @@ function remapToYAxis(length,margin,axis, value) {
 	} else {
 		return (length-margin) - (length - 2*margin)*((value + 1)/2)
 	}
-}
-
-function mapFromXValue(length,margin,axis,x) {
-}
-
-function mapFromYValue(length,margin,axis,y) {
 }
 
 function recalculateSlider(id,e) {
@@ -472,14 +463,13 @@ function postBiomeDataLoad() {
 	};
 
 
-	let myFont = new FontFace(
+	let overpassMono = new FontFace(
 	  "Overpass Mono",
 	  "url(https://fonts.gstatic.com/s/overpassmono/v21/_Xmq-H86tzKDdAPa-KPQZ-AC1i-0tg.woff2)"
 	);
 
-	myFont.load().then((font) => {
+	overpassMono.load().then((font) => {
 		document.fonts.add(font);
-		console.log("Font loaded");
 		updateCanvas();
 	});
 
