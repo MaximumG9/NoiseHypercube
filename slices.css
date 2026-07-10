@@ -58,3 +58,45 @@ select {
 #xAxis {
    margin-bottom:1vh;
 }
+
+#randomizeButtonContainer {
+  background: #111;
+  width: fit-content;
+  border-radius: 0.5rem;
+}
+
+#randomizeButtonContainer:hover {
+  background-image: repeating-linear-gradient(in oklch 50deg, oklch(0.3 0.1 0) 0.0%, oklch(0.3 0.1 180) 25.0%, oklch(0.3 0.1 359.9) 50.0%); 
+  background-size: 200%, 200%;
+  animation: mov 2s linear infinite;
+}
+
+#randomizeButton {
+  font-size: 2.3vh;
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  position:relative;
+  /* background: #111; */
+  color: rgba(127,127,127,255);
+  
+}
+
+
+#randomizeButton:hover {
+  background-image: repeating-linear-gradient(in oklch 50deg, oklch(0.6537 0.2557 -179.9) 0.0%, oklch(0.6537 0.2557 0) 25.0%, oklch(0.6537 0.2557 180) 50.0%);
+  background-size: 200%, 200%;
+  animation: mov 2s linear infinite reverse;
+  background-clip: text;
+  color:transparent;
+}
+
+@keyframes mov {
+  from {
+    background-position: 0% 100%;
+  }
+  to {
+    background-position: 104% 0%;
+  }
+}
+
+/* oklch(0.6537 0.2557 21.9) */

@@ -150,7 +150,6 @@ sliderLoop:
 
 	// X axis
 	
-	
 	for(let i=0;i<=DIVISION_COUNT;i++) {
 		ctx.moveTo(
 			remapToXAxis(length,closeMargin,xAxis,(2 * i/DIVISION_COUNT) - 1),
@@ -429,6 +428,10 @@ function postBiomeDataLoad() {
 
 	xAxisDropdown.onchange = (e) => {
 		xAxis = Number.parseInt(e.target.value);
+
+		for(let i=0;i<sliders.length;i++) {
+			sliders[i].children[0].value = 0;
+		}
 		
 		updateSliderParams();
 				
@@ -447,12 +450,25 @@ function postBiomeDataLoad() {
 
 	yAxisDropdown.onchange = (e) => {
 		yAxis = Number.parseInt(e.target.value);
+
+		for(let i=0;i<sliders.length;i++) {
+			sliders[i].children[0].value = 0;
+		}
 		
 		updateSliderParams();
 				
 		recalculateAllSliders();
 		updateDocShape();
 		updateCanvas();
+	};
+
+	let randomizeButton = document.getElementById("randomizeButton");
+	randomizeButton.onclick = (e) => {
+		for(let i=0;i<sliders.length;i++) {
+			if(sliderParams[i] === 4) continue;
+			sliders[i].children[0].value = (Math.random()*2) - 1;
+			recalculateSlider(i,{target: sliders[i].children[0]});
+		}
 	};
 
 
