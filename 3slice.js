@@ -30,6 +30,12 @@ let canvasAxes = [
 	{x:DEPTH,y:WEIRDNESS}
 ];
 
+let axisSelectors = [
+	{x:undefined,y:undefined},
+	{x:undefined,y:undefined},
+	{x:undefined,y:undefined},
+];
+
 let version = "1.21.11";
 
 function hexToRgb(hex) {
@@ -277,12 +283,16 @@ otherLoop:
 
 		let lastIndex = 0;
 		
+outerLoop:
 		do {
 			for(let i=name.length;i>lastIndex;i--) {
 				if(ctx.measureText(name.substring(lastIndex,i)).width + 2 < width) {
 					lines.push(name.substring(lastIndex,i));
 					lastIndex = i;
 					break;
+				} else if(lastIndex === i-1) {
+					lines = [name];
+					break outerLoop; 
 				}
 			}
 		} while(lastIndex < name.length);
@@ -333,6 +343,20 @@ function updateNoiseNumbers() {
 
 	valueText.innerText = 
 		`T:${roundT} H:${roundH} C:${roundC} E:${roundE} D:${roundD} W:${roundW}`;
+	if(hasDuplicateAxes()) {
+		valueText.innerText = valueText.innerText + " (DUPLICATE AXES)";
+	}
+}
+
+function hasDuplicateAxes() {
+	let occured = [];
+	for(let i=0;i<canvasAxes.length;i++) {
+		if(occured[canvasAxes[i].x.idx]) return true;
+		if(occured[canvasAxes[i].y.idx]) return true;
+		occured[canvasAxes[i].x.idx] = true;
+		occured[canvasAxes[i].y.idx] = true;
+	}
+	return false;
 }
 
 function onHoldCanvas(e) {
@@ -418,8 +442,31 @@ function onResize() {
 	drawCanvi();
 }
 
+function onSelectorChange(e,id,isX) {
+	let newValue = Number.parseInt(e.target.value);
+	let newNoise = noiseParams[newValue];
+
+	if(isX) {
+		canvasAxes[id].x = newNoise;
+	} else {
+		canvasAxes[id].y = newNoise;
+	}
+
+	drawCanvi();
+	updateNoiseNumbers();
+}
+
 function onLoad() {
 	window.onresize = onResize;
+
+	for(let i=0;i<3;i++) {
+		axisSelectors[i].x = document.getElementById(`axes${i}x`);
+		axisSelectors[i].y = document.getElementById(`axes${i}y`);
+		canvasAxes[i].x = noiseParams[Number.parseInt(axisSelectors[i].x.value)];
+		canvasAxes[i].y = noiseParams[Number.parseInt(axisSelectors[i].y.value)];
+		axisSelectors[i].x.onchange = (e) => {onSelectorChange(e,i,true);};
+        	axisSelectors[i].y.onchange = (e) => {onSelectorChange(e,i,false);};
+	}
 
 	valueText = document.getElementById("values");
 

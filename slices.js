@@ -286,13 +286,17 @@ sliderLoop:
 		let lines = [];
 
 		let lastIndex = 0;
-		
+
+outerLoop:
 		do {
 			for(let i=name.length;i>lastIndex;i--) {
 				if(ctx.measureText(name.substring(lastIndex,i)).width + 2 < width) {
 					lines.push(name.substring(lastIndex,i));
 					lastIndex = i;
 					break;
+				} else if(lastIndex === i-1) {
+					lines = [name];
+					break outerLoop; 
 				}
 			}
 		} while(lastIndex < name.length);
